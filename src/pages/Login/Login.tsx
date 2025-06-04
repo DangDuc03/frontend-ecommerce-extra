@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema, Schema } from 'src/utils/rules'
 import { useMutation } from '@tanstack/react-query'
@@ -18,6 +18,8 @@ const loginSchema = schema.pick(['email', 'password'])
 export default function Login() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
+  const location = useLocation()
+
   const {
     register,
     setError,
@@ -30,12 +32,16 @@ export default function Login() {
   const loginMutation = useMutation({
     mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.login(body)
   })
+
   const onSubmit = handleSubmit((data) => {
     loginMutation.mutate(data, {
       onSuccess: (data) => {
         setIsAuthenticated(true)
         setProfile(data.data.data.user)
-        navigate('/')
+        
+        // Redirect về trang trước đó hoặc trang chủ
+        const from = (location.state as any)?.from?.pathname || '/'
+        navigate(from)
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError<ErrorResponse<FormData>>(error)) {
@@ -85,7 +91,7 @@ export default function Login() {
               <div className='mt-3'>
                 <Button
                   type='submit'
-                  className='flex  w-full items-center justify-center bg-red-500 py-4 px-2 text-sm uppercase text-white hover:bg-red-600'
+                  className='flex w-full items-center justify-center bg-red-500 py-4 px-2 text-sm uppercase text-white hover:bg-red-600'
                   isLoading={loginMutation.isPending}
                   disabled={loginMutation.isPending}
                 >

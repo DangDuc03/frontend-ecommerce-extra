@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import ErrorBoundary from './components/ErrorBoundary'
 import { HelmetProvider } from 'react-helmet-async'
 import Chatbot from './components/Chatbox/Chatbot'
+import useOnlineStatus from './hooks/useOnlineStatus'
 
 /**
  * Khi url thay đổi thì các component nào dùng các hook như
@@ -19,6 +20,8 @@ import Chatbot from './components/Chatbox/Chatbot'
 
 function App() {
   const routeElements = useRouteElements()
+   // Sử dụng hook để theo dõi trạng thái online
+  useOnlineStatus()
   const { reset } = useContext(AppContext)
   useEffect(() => {
     LocalStorageEventTarget.addEventListener('clearLS', reset)
@@ -32,9 +35,9 @@ function App() {
       <ErrorBoundary>
         {routeElements}
         <ToastContainer />
-      </ErrorBoundary>
-      <ReactQueryDevtools initialIsOpen={false} />
       <Chatbot />
+      </ErrorBoundary>
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </HelmetProvider>
   )
 }

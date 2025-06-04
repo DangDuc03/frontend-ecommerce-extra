@@ -20,6 +20,9 @@ const userApi = {
         'Content-Type': 'multipart/form-data'
       }
     })
+  },
+  updateStatus(userId: string, data: { isOnline: boolean; lastActive: string }) {
+    return http.put(`/${userId}/status`, data)
   }
 }
 
