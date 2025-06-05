@@ -11,4 +11,10 @@ export interface User {
   phone?: string
   createdAt: string
   updatedAt: string
+  lastActive?: string
+  isOnline?: boolean
+}
+
+export interface CreateUserDto extends Omit<User, '_id' | 'createdAt' | 'updatedAt'> {
+  password: string
 }

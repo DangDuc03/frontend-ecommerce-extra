@@ -14,6 +14,7 @@ export interface Purchase {
   product: Product
   createdAt: string
   updatedAt: string
+  orderId?: string
 }
 
 export interface ExtendedPurchase extends Purchase {

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { createSearchParams, Link } from 'react-router-dom'
 import purchaseApi from 'src/apis/purchase.api'
@@ -7,6 +7,9 @@ import { purchasesStatus } from 'src/constants/purchase'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { PurchaseListStatus } from 'src/types/purchase.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
+import Button from 'src/components/Button/Button'
+import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 const purchaseTabs = [
   { status: purchasesStatus.all, name: 'Tất cả' },
@@ -20,13 +23,28 @@ const purchaseTabs = [
 export default function HistoryPurchase() {
   const queryParams: { status?: string } = useQueryParams()
   const status: number = Number(queryParams.status) || purchasesStatus.all
+  const [cancelingId, setCancelingId] = useState<string | null>(null)
 
-  const { data: purchasesInCartData } = useQuery({
+  const { data: purchasesInCartData, refetch } = useQuery({
     queryKey: ['purchases', { status }],
     queryFn: () => purchaseApi.getPurchases({ status: status as PurchaseListStatus })
   })
 
   const purchasesInCart = purchasesInCartData?.data.data
+
+  const cancelOrderMutation = useMutation({
+    mutationFn: (orderId: string) => purchaseApi.cancelOrder(orderId),
+    onSuccess: () => {
+      setCancelingId(null)
+      refetch()
+    }
+  })
+
+  const handleCancelOrder = (orderId: string) => {
+    setCancelingId(orderId)
+    cancelOrderMutation.mutate(orderId)
+    toast.success('Huỷ đơn hàng thành công')
+  }
 
   const purchaseTabsLink = purchaseTabs.map((tab) => (
     <Link
@@ -72,13 +90,24 @@ export default function HistoryPurchase() {
                     <span className='ml-2 truncate text-orange'>₫{formatCurrency(purchase.product.price)}</span>
                   </div>
                 </Link>
-                <div className='flex justify-end'>
+                <div className='flex justify-end items-center gap-4'>
                   <div>
                     <span>Tổng giá tiền</span>
                     <span className='ml-4 text-xl text-orange'>
                       ₫{formatCurrency(purchase.product.price * purchase.buy_count)}
                     </span>
                   </div>
+                  {/* Nút huỷ đơn */}
+                  {purchase.status === purchasesStatus.waitForConfirmation && (
+                    <Button
+                      className='ml-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors'
+                      isLoading={cancelingId === purchase._id && cancelOrderMutation.isPending}
+                      disabled={cancelingId === purchase._id && cancelOrderMutation.isPending}
+                      onClick={() => handleCancelOrder(purchase.orderId || purchase._id)}
+                    >
+                      Huỷ đơn
+                    </Button>
+                  )}
                 </div>
               </div>
             ))}

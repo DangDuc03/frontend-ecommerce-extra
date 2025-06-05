@@ -12,6 +12,9 @@ import RegisterLayout from './layouts/RegisterLayout'
 // import Cart from './pages/Cart'
 import CartLayout from './layouts/CartLayout'
 import UserLayout from './pages/User/layouts/UserLayout'
+import AdminLayout from './pages/Admin/layouts/AdminLayout'
+import AdminGuard from './components/Guards/AdminGuard'
+import Orders from './pages/Admin/Orders'
 // import ChangePassword from './pages/User/pages/ChangePassword'
 // import HistoryPurchase from './pages/User/pages/HistoryPurchase'
 // import NotFound from './pages/NotFound'
@@ -25,6 +28,12 @@ const Cart = lazy(() => import('./pages/Cart'))
 const ChangePassword = lazy(() => import('./pages/User/pages/ChangePassword'))
 const HistoryPurchase = lazy(() => import('./pages/User/pages/HistoryPurchase'))
 const NotFound = lazy(() => import('./pages/NotFound'))
+
+// Admin Pages
+const Dashboard = lazy(() => import('./pages/Admin/Dashboard'))
+const AdminProducts = lazy(() => import('./pages/Admin/Products'))
+const AdminCategories = lazy(() => import('./pages/Admin/Categories'))
+const AdminUsers = lazy(() => import('./pages/Admin/Users'))
 
 /**
  * Để tối ưu re-render thì nên ưu tiên dùng <Outlet /> thay cho {children}
@@ -63,7 +72,44 @@ function RejectedRoute() {
 }
 
 export default function useRouteElements() {
+  console.log("useRouteElements Mountted")
   const routeElements = useRoutes([
+    {
+      path: path.admin.root,
+      element: (
+        <AdminGuard>
+          <Suspense>
+            <AdminLayout />
+          </Suspense>
+        </AdminGuard>
+      ),
+      children: [
+        {
+          path: '',
+          element: <Dashboard />
+        },
+        {
+          path: 'products',
+          element: <AdminProducts />
+        },
+        {
+          path: 'categories',
+          element: <AdminCategories />
+        },
+        {
+          path: 'users',
+          element: <AdminUsers />
+        },
+        {
+          path: 'orders',
+          element: <Orders />
+        },
+        {
+          path: 'reports',
+          element: <Dashboard />
+        }
+      ]
+    },
     {
       path: '',
       element: <RejectedRoute />,
