@@ -91,7 +91,8 @@ export const useChatbot = () => {
           content: botResponse,
           sender: 'bot',
           timestamp: new Date(),
-          ...(res.data.orders ? { orders: res.data.orders } : {})
+          ...(res.data.orders ? { orders: res.data.orders } : {}),
+          ...(res.data.suggestedProducts ? { suggestedProducts: res.data.suggestedProducts } : {})
         }
         setMessages((prev) => [...prev, botMessage])
         setIsTyping(false)
@@ -107,7 +108,7 @@ export const useChatbot = () => {
         setTimeout(() => {
           const errorMessage: Message = {
             id: (Date.now() + 1).toString(),
-            content: 'Hệ thống AI đang quá tải, vui lòng thử lại sau.',
+            content: 'Hiện nay, Hệ thống AI đang gặp chút vấn đề, vui lòng thử lại sau.',
             sender: 'bot',
             timestamp: new Date()
           }
@@ -121,7 +122,7 @@ export const useChatbot = () => {
             content:
               error?.response?.status === 401
                 ? 'Bạn cần đăng nhập để sử dụng chatbot.'
-                : 'Xin lỗi, có lỗi xảy ra. Vui lòng thử lại sau.',
+                : 'Xin lỗi vì sự bất tiện này🥹, hệ thống đang có lỗi xảy ra. Vui lòng thử lại sau.',
             sender: 'bot',
             timestamp: new Date()
           }

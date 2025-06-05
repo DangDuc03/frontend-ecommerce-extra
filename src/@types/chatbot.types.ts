@@ -1,10 +1,19 @@
+export interface SuggestedProduct {
+  name: string
+  price: number
+  productId: string
+  url: string
+}
+
 export interface Message {
   id: string
   content: string
+  reply?: string
   sender: 'user' | 'bot'
   timestamp: Date
   typing?: boolean
   orders?: OrderInfo[]
+  suggestedProducts?: SuggestedProduct[]
 }
 
 export interface OrderInfo {
@@ -27,4 +36,5 @@ export interface ChatbotApiResponse {
   reply: string
   orders?: OrderInfo[]
   intent?: string
+  suggestedProducts?: SuggestedProduct[]
 }
