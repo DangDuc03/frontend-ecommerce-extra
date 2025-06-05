@@ -38,7 +38,7 @@ export default function Login() {
       onSuccess: (data) => {
         setIsAuthenticated(true)
         setProfile(data.data.data.user)
-        
+
         // Redirect về trang trước đó hoặc trang chủ
         const from = (location.state as any)?.from?.pathname || '/'
         navigate(from)

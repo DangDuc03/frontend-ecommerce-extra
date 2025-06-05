@@ -8,7 +8,8 @@ import { Product } from 'src/types/product.type'
 import CountUp from 'react-countup'
 
 export default function Categories() {
-  const { categoriesQuery, deleteCategoryMutation, createCategoryMutation, updateCategoryMutation } = useAdminCategories()
+  const { categoriesQuery, deleteCategoryMutation, createCategoryMutation, updateCategoryMutation } =
+    useAdminCategories()
   const { productsQuery } = useAdminProducts()
   const [searchTerm, setSearchTerm] = useState('')
   const [showForm, setShowForm] = useState(false)
@@ -45,9 +46,7 @@ export default function Categories() {
   const products = productsQuery.data?.data?.data.products || []
 
   const filteredCategories = searchTerm
-    ? categories.filter((category: Category) =>
-        category.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? categories.filter((category: Category) => category.name.toLowerCase().includes(searchTerm.toLowerCase()))
     : categories
 
   // Đếm số lượng sản phẩm cho mỗi category
@@ -122,7 +121,9 @@ export default function Categories() {
                 <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
                   Số Lượng Sản Phẩm
                 </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Thao tác</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Thao tác
+                </th>
               </tr>
             </thead>
             <tbody className='bg-white divide-y divide-gray-200'>
@@ -172,4 +173,4 @@ export default function Categories() {
       )}
     </div>
   )
-} 
+}

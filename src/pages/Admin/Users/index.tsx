@@ -19,8 +19,6 @@ export default function Users() {
   const [userToDelete, setUserToDelete] = useState<User | null>(null)
   const { profile } = useContext(AppContext)
 
-  
-
   // Log để kiểm tra cấu trúc response
   console.log('Users Response:', usersQuery.data)
 
@@ -70,9 +68,10 @@ export default function Users() {
   // Xử lý data an toàn hơn
   const users = usersQuery.data?.data.data || []
   const filteredUsers = searchTerm
-    ? users.filter((user: User) =>
-        user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    ? users.filter(
+        (user: User) =>
+          user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.name?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : users
 
@@ -90,10 +89,7 @@ export default function Users() {
     return (
       <div className='flex flex-col items-center justify-center h-screen text-gray-500'>
         <p>Có lỗi xảy ra khi tải dữ liệu</p>
-        <button
-          onClick={() => usersQuery.refetch()}
-          className='mt-4 text-orange-500 hover:text-orange-600'
-        >
+        <button onClick={() => usersQuery.refetch()} className='mt-4 text-orange-500 hover:text-orange-600'>
           Thử lại
         </button>
       </div>
@@ -107,7 +103,7 @@ export default function Users() {
     // Kiểm tra xem user có hoạt động trong 5 phút gần đây không
     const lastActive = user.lastActive ? new Date(user.lastActive) : null
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000)
-    
+
     if (lastActive && lastActive > fiveMinutesAgo) {
       return 'bg-yellow-500' // Away
     }
@@ -122,7 +118,7 @@ export default function Users() {
       const lastActive = new Date(user.lastActive)
       const now = new Date()
       const diffMinutes = Math.floor((now.getTime() - lastActive.getTime()) / (1000 * 60))
-      
+
       if (diffMinutes < 1) {
         return 'Vừa truy cập'
       }
@@ -190,7 +186,9 @@ export default function Users() {
                 <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
                   Vai trò
                 </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Thao tác</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Thao tác
+                </th>
               </tr>
             </thead>
             <tbody className='bg-white divide-y divide-gray-200'>
@@ -214,19 +212,19 @@ export default function Users() {
                   <td className='px-6 py-4 text-sm text-gray-500'>{user.phone}</td>
                   <td className='px-6 py-4 text-sm text-gray-500'>{formatDate(user.createdAt)}</td>
                   <td className='px-6 py-4 text-sm text-gray-500'>
-                  {user.roles?.map((role) => {
-                    const isAdmin = role === 'Admin'
-                    const bgColor = isAdmin ? 'bg-green-100' : 'bg-blue-100'
-                    const textColor = isAdmin ? 'text-green-800' : 'text-blue-800'
-                    return (
-                      <span
-                        key={role}
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${bgColor} ${textColor} mr-2`}
-                      >
-                        {role}
-                      </span>
-                    )
-                  })}
+                    {user.roles?.map((role) => {
+                      const isAdmin = role === 'Admin'
+                      const bgColor = isAdmin ? 'bg-green-100' : 'bg-blue-100'
+                      const textColor = isAdmin ? 'text-green-800' : 'text-blue-800'
+                      return (
+                        <span
+                          key={role}
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${bgColor} ${textColor} mr-2`}
+                        >
+                          {role}
+                        </span>
+                      )
+                    })}
                   </td>
                   <td className='px-6 py-4 text-sm font-medium'>
                     <div className='flex space-x-3'>
@@ -241,7 +239,9 @@ export default function Users() {
                         onClick={() => handleDeleteClick(user)}
                         className={`text-red-600 hover:text-red-900`}
                         disabled={deleteUserMutation.isPending || user._id === profile?._id}
-                        style={{ cursor: deleteUserMutation.isPending || user._id === profile?._id ? 'not-allowed' : 'pointer' }}
+                        style={{
+                          cursor: deleteUserMutation.isPending || user._id === profile?._id ? 'not-allowed' : 'pointer'
+                        }}
                       >
                         <Trash2 size={18} />
                       </button>
@@ -281,4 +281,4 @@ export default function Users() {
       />
     </div>
   )
-} 
+}

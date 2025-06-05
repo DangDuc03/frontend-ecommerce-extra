@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import path from 'src/constants/path'
-import { 
-  LayoutDashboard, 
-  Package, 
-  FolderTree, 
-  Users, 
-  BarChart3, 
-  Menu, 
-  X, 
-  Bell, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Package,
+  FolderTree,
+  Users,
+  BarChart3,
+  Menu,
+  X,
+  Bell,
+  Settings,
   LogOut,
   ChevronDown,
   User,
@@ -35,14 +35,14 @@ export default function AdminLayout() {
   return (
     <div className='min-h-screen bg-gray-50 flex'>
       {/* Sidebar */}
-      <div className={`bg-white shadow-lg transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-16'} fixed left-0 top-0 h-full z-40`}>
+      <div
+        className={`bg-white shadow-lg transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-16'} fixed left-0 top-0 h-full z-40`}
+      >
         {/* Logo */}
         <div className='h-16 flex items-center justify-between px-4 border-b'>
           {sidebarOpen && (
             <div className='flex items-center space-x-2'>
-              <div className='w-8 h-8 bg-orange rounded text-white flex items-center justify-center font-bold'>
-                S
-              </div>
+              <div className='w-8 h-8 bg-orange rounded text-white flex items-center justify-center font-bold'>S</div>
               <span className='text-xl font-bold text-gray-800'>Shopee Admin</span>
             </div>
           )}
@@ -82,7 +82,7 @@ export default function AdminLayout() {
         <header className='bg-white shadow-sm border-b h-16 flex items-center justify-between px-6'>
           <div className='flex items-center space-x-4'>
             <h1 className='text-2xl font-semibold text-gray-800'>
-              {menuItems.find(item => location.pathname === item.path)?.label || 'Dashboard'}
+              {menuItems.find((item) => location.pathname === item.path)?.label || 'Dashboard'}
             </h1>
           </div>
 
@@ -140,11 +140,8 @@ export default function AdminLayout() {
 
       {/* Mobile Overlay */}
       {sidebarOpen && (
-        <div 
-          className='fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden'
-          onClick={() => setSidebarOpen(false)}
-        />
+        <div className='fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden' onClick={() => setSidebarOpen(false)} />
       )}
     </div>
   )
-} 
+}

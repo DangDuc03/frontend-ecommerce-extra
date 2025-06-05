@@ -34,7 +34,7 @@ export default function NavHeader() {
         await userApi.updateStatus(profile._id, { isOnline: false, lastActive: new Date().toISOString() })
       }
     } catch (e) {
-      console.log("lỗi: ", e)
+      console.log('lỗi: ', e)
     }
     logoutMutation.mutate()
     toast.success('Đăng xuất thành công')

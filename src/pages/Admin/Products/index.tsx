@@ -47,9 +47,7 @@ export default function Products() {
   // Xử lý data an toàn hơn
   const products = productsQuery.data?.data?.data.products || []
   const filteredProducts = searchTerm
-    ? products.filter((product: Product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? products.filter((product: Product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
     : products
 
   // Loading state
@@ -66,10 +64,7 @@ export default function Products() {
     return (
       <div className='flex flex-col items-center justify-center h-screen text-gray-500'>
         <p>Có lỗi xảy ra khi tải dữ liệu</p>
-        <button
-          onClick={() => productsQuery.refetch()}
-          className='mt-4 text-orange-500 hover:text-orange-600'
-        >
+        <button onClick={() => productsQuery.refetch()} className='mt-4 text-orange-500 hover:text-orange-600'>
           Thử lại
         </button>
       </div>
@@ -120,8 +115,12 @@ export default function Products() {
                 <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
                   Số lượng
                 </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Đã bán</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Thao tác</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Đã bán
+                </th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Thao tác
+                </th>
               </tr>
             </thead>
             <tbody className='bg-white divide-y divide-gray-200'>
@@ -178,4 +177,4 @@ export default function Products() {
       )}
     </div>
   )
-} 
+}

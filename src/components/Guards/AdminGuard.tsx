@@ -56,7 +56,6 @@ export default function AdminGuard({ children }: AdminGuardProps) {
 
   // Kiểm tra các quyền đặc biệt cho từng route
 
-
   console.log('✅ Access granted (bypass mode)')
   return <>{children}</>
 }

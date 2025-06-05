@@ -115,17 +115,10 @@ export default function UserForm({ initialData, onSubmit, onClose }: UserFormPro
           </div>
 
           <div className='flex justify-end gap-4 mt-6'>
-            <button
-              type='button'
-              onClick={onClose}
-              className='px-4 py-2 text-sm border rounded-lg hover:bg-gray-50'
-            >
+            <button type='button' onClick={onClose} className='px-4 py-2 text-sm border rounded-lg hover:bg-gray-50'>
               Hủy
             </button>
-            <button
-              type='submit'
-              className='px-4 py-2 text-sm bg-orange text-white rounded-lg hover:bg-orange-600'
-            >
+            <button type='submit' className='px-4 py-2 text-sm bg-orange text-white rounded-lg hover:bg-orange-600'>
               {initialData ? 'Cập nhật' : 'Thêm mới'}
             </button>
           </div>
@@ -133,4 +126,4 @@ export default function UserForm({ initialData, onSubmit, onClose }: UserFormPro
       </div>
     </div>
   )
-} 
+}

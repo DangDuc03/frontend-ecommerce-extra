@@ -1,5 +1,4 @@
-import http from "src/utils/http";
-
+import http from 'src/utils/http'
 
 export const adminApi = {
   products: {
@@ -7,7 +6,8 @@ export const adminApi = {
     create: (data: any) => http.post('/admin/products', data),
     update: (id: string, data: any) => http.put(`/admin/products/${id}`, data),
     delete: (id: string) => http.delete(`/admin/products/${id}`),
-    uploadImages: (formData: FormData) => http.post('/admin/products/upload-images', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+    uploadImages: (formData: FormData) =>
+      http.post('/admin/products/upload-images', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
   },
   categories: {
     getList: () => http.get('/admin/categories'),
@@ -29,4 +29,4 @@ export const adminApi = {
     update: (id: string, data: any) => http.put(`/admin/orders/${id}`, data),
     delete: (id: string) => http.delete(`/admin/orders/${id}`)
   }
-} 
+}
