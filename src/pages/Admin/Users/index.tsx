@@ -9,7 +9,6 @@ import ConfirmModal from 'src/components/ConfirmModal'
 import { ADMIN_DELETE_VERIFICATION_CODE, AUTH_MESSAGES } from 'src/constants/auth.constants'
 import { AppContext } from 'src/contexts/app.context'
 import { toast } from 'react-toastify'
-import useOnlineStatus from 'src/hooks/useOnlineStatus'
 
 export default function Users() {
   const { usersQuery, deleteUserMutation, createUserMutation, updateUserMutation } = useAdminUsers()

@@ -15,7 +15,8 @@ const path = {
     products: '/admin/products',
     categories: '/admin/categories',
     users: '/admin/users',
-    reports: '/admin/reports'
+    reports: '/admin/reports',
+    orders: '/admin/orders'
   }
 } as const
 

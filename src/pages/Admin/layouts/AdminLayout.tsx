@@ -13,13 +13,15 @@ import {
   Settings, 
   LogOut,
   ChevronDown,
-  User
+  User,
+  ClipboardList
 } from 'lucide-react'
 
 const menuItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: path.admin.dashboard },
   { id: 'products', label: 'Quản Lý Sản Phẩm', icon: Package, path: path.admin.products },
   { id: 'categories', label: 'Quản Lý Danh Mục', icon: FolderTree, path: path.admin.categories },
+  { id: 'orders', label: 'Quản Lý Đơn Hàng', icon: ClipboardList, path: path.admin.orders },
   { id: 'users', label: 'Quản Lý Người Dùng', icon: Users, path: path.admin.users },
   { id: 'reports', label: 'Báo Cáo & Thống Kê', icon: BarChart3, path: path.admin.reports }
 ]

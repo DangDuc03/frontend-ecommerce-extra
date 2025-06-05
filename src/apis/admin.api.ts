@@ -22,5 +22,11 @@ export const adminApi = {
     delete: (id: string) => http.delete(`/admin/users/delete/${id}`),
     updateStatus: (id: string, data: { isOnline: boolean; lastActive: string }) =>
       http.put(`/admin/users/${id}/status`, data)
+  },
+  orders: {
+    getList: (params: any) => http.get('/admin/orders', { params }),
+    getDetail: (id: string) => http.get(`/admin/orders/${id}`),
+    update: (id: string, data: any) => http.put(`/admin/orders/${id}`, data),
+    delete: (id: string) => http.delete(`/admin/orders/${id}`)
   }
 } 

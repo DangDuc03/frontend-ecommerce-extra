@@ -14,7 +14,6 @@ export default function Categories() {
   const [showForm, setShowForm] = useState(false)
   const [editingCategory, setEditingCategory] = useState<Category | null>(null)
 
-  // Log để kiểm tra cấu trúc response
   console.log('Categories Response:', categoriesQuery.data?.data.data)
 
   const handleDelete = (id: string) => {

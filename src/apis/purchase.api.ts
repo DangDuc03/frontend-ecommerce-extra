@@ -23,6 +23,9 @@ const purchaseApi = {
     return http.delete<SuccessResponse<{ deleted_count: number }>>(`${URL}`, {
       data: purchaseIds
     })
+  },
+  cancelOrder(orderId: string) {
+    return http.post(`/purchases/orders/${orderId}/cancel`)
   }
 }
 

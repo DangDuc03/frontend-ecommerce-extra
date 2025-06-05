@@ -14,6 +14,7 @@ import CartLayout from './layouts/CartLayout'
 import UserLayout from './pages/User/layouts/UserLayout'
 import AdminLayout from './pages/Admin/layouts/AdminLayout'
 import AdminGuard from './components/Guards/AdminGuard'
+import Orders from './pages/Admin/Orders'
 // import ChangePassword from './pages/User/pages/ChangePassword'
 // import HistoryPurchase from './pages/User/pages/HistoryPurchase'
 // import NotFound from './pages/NotFound'
@@ -98,6 +99,10 @@ export default function useRouteElements() {
         {
           path: 'users',
           element: <AdminUsers />
+        },
+        {
+          path: 'orders',
+          element: <Orders />
         },
         {
           path: 'reports',

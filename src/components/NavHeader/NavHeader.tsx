@@ -9,6 +9,9 @@ import { getAvatarUrl } from 'src/utils/utils'
 import Popover from '../Popover'
 import { useTranslation } from 'react-i18next'
 import { locales } from 'src/i18n/i18n'
+import userApi from 'src/apis/user.api'
+import { toast } from 'react-toastify'
+import useOnlineStatus from 'src/hooks/useOnlineStatus'
 
 export default function NavHeader() {
   const { i18n } = useTranslation()
@@ -19,15 +22,22 @@ export default function NavHeader() {
   const logoutMutation = useMutation({
     mutationFn: authApi.logout,
     onSuccess: () => {
-      console.log(111)
       setIsAuthenticated(false)
       setProfile(null)
       queryClient.removeQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
     }
   })
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      if (profile?._id) {
+        await userApi.updateStatus(profile._id, { isOnline: false, lastActive: new Date().toISOString() })
+      }
+    } catch (e) {
+      console.log("lỗi: ", e)
+    }
     logoutMutation.mutate()
+    toast.success('Đăng xuất thành công')
   }
 
   const changeLanguage = (lng: 'en' | 'vi') => {

@@ -9,6 +9,28 @@ const THROTTLE_TIME = 30 * 1000 // 30 giây
 export default function useOnlineStatus() {
   const { profile } = useContext(AppContext)
   const isOnlineRef = useRef(false)
+  const profileRef = useRef(profile) // Lưu reference để sử dụng trong cleanup
+
+  // Cập nhật profileRef khi profile thay đổi
+  useEffect(() => {
+    profileRef.current = profile
+  }, [profile])
+
+  // Expose method để force offline từ bên ngoài
+  const forceOffline = async () => {
+    if (!profile?._id) return
+
+    try {
+      await userApi.updateStatus(profile._id, {
+        isOnline: false,
+        lastActive: new Date().toISOString()
+      })
+      isOnlineRef.current = false
+      console.log('Forced offline status update')
+    } catch (error) {
+      console.error('Failed to force offline status:', error)
+    }
+  }
 
   useEffect(() => {
     if (!profile?._id) return
@@ -36,7 +58,11 @@ export default function useOnlineStatus() {
         // Cancel pending throttled calls khi chuyển offline
         throttledUpdateOnline.cancel()
 
-        await userApi.updateStatus(profile._id, {
+        // Sử dụng profileRef thay vì profile để tránh stale closure
+        const currentProfile = profileRef.current
+        if (!currentProfile?._id) return
+
+        await userApi.updateStatus(currentProfile._id, {
           isOnline: false,
           lastActive: new Date().toISOString()
         })
@@ -93,16 +119,14 @@ export default function useOnlineStatus() {
       throttledUpdateOnline.cancel()
 
       // Sử dụng sendBeacon nếu có thể
-      if (navigator.sendBeacon && isOnlineRef.current) {
+      if (navigator.sendBeacon && isOnlineRef.current && profileRef.current?._id) {
         const data = JSON.stringify({
           isOnline: false,
           lastActive: new Date().toISOString()
         })
-        navigator.sendBeacon(`/api/users/${profile._id}/status`, data)
-      } else {
-        // Fallback to sync request
-        updateOfflineStatus()
+        navigator.sendBeacon(`/api/users/${profileRef.current._id}/status`, data)
       }
+      // Không fallback to sync request vì có thể không có token
     }
 
     window.addEventListener('beforeunload', handleBeforeUnload)
@@ -138,8 +162,12 @@ export default function useOnlineStatus() {
       throttledUpdateOnline.cancel()
       throttledActivityForHighFreq.cancel()
 
-      // Set offline khi cleanup
-      updateOfflineStatus()
+      // KHÔNG gọi updateOfflineStatus trong cleanup
+      // Vì khi logout, profile đã bị clear và không có token
+      // Thay vào đó, sẽ handle offline trong logout function
     }
   }, [profile?._id])
+
+  // Return forceOffline để sử dụng khi logout
+  return { forceOffline }
 }
