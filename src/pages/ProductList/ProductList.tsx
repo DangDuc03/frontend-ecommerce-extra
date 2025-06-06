@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import categoryApi from 'src/apis/category.api'
 import productApi from 'src/apis/product.api'
@@ -17,7 +17,7 @@ export default function ProductList() {
     queryFn: () => {
       return productApi.getProducts(queryConfig as ProductListConfig)
     },
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     staleTime: 3 * 60 * 1000
   })
 
