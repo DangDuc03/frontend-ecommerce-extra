@@ -8,8 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-# dist
-# dist-ssr
+
 *.local
 stats.html
 coverage/
@@ -23,6 +22,7 @@ coverage/
 *.njsproj
 *.sln
 *.sw?
+msw/
 
 *storybook.log
 admin-page-hardcode/
