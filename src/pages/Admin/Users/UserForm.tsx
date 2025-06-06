@@ -45,7 +45,7 @@ export default function UserForm({ initialData, onSubmit, onClose }: UserFormPro
             <input
               {...register('name', { required: 'Tên là bắt buộc' })}
               type='text'
-              className='w-full p-2 border rounded focus:outline-none focus:border-orange'
+              className='w-full p-2 border rounded focus:outline-none focus:border-primary'
             />
             {errors.name && <p className='text-red-500 text-xs mt-1'>{errors.name.message}</p>}
           </div>
@@ -61,7 +61,7 @@ export default function UserForm({ initialData, onSubmit, onClose }: UserFormPro
                 }
               })}
               type='email'
-              className='w-full p-2 border rounded focus:outline-none focus:border-orange'
+              className='w-full p-2 border rounded focus:outline-none focus:border-primary'
             />
             {errors.email && <p className='text-red-500 text-xs mt-1'>{errors.email.message}</p>}
           </div>
@@ -78,7 +78,7 @@ export default function UserForm({ initialData, onSubmit, onClose }: UserFormPro
                   }
                 })}
                 type='password'
-                className='w-full p-2 border rounded focus:outline-none focus:border-orange'
+                className='w-full p-2 border rounded focus:outline-none focus:border-primary'
               />
               {errors.password && <p className='text-red-500 text-xs mt-1'>{errors.password.message}</p>}
             </div>
@@ -89,7 +89,7 @@ export default function UserForm({ initialData, onSubmit, onClose }: UserFormPro
             <input
               {...register('phone')}
               type='tel'
-              className='w-full p-2 border rounded focus:outline-none focus:border-orange'
+              className='w-full p-2 border rounded focus:outline-none focus:border-primary'
             />
           </div>
 
@@ -98,7 +98,7 @@ export default function UserForm({ initialData, onSubmit, onClose }: UserFormPro
             <input
               {...register('address')}
               type='text'
-              className='w-full p-2 border rounded focus:outline-none focus:border-orange'
+              className='w-full p-2 border rounded focus:outline-none focus:border-primary'
             />
           </div>
 
@@ -106,7 +106,7 @@ export default function UserForm({ initialData, onSubmit, onClose }: UserFormPro
             <label className='block text-sm font-medium text-gray-700 mb-1'>Vai trò</label>
             <select
               {...register('roles')}
-              className='w-full p-2 border rounded focus:outline-none focus:border-orange'
+              className='w-full p-2 border rounded focus:outline-none focus:border-primary'
               multiple
             >
               <option value='User'>User</option>
@@ -118,7 +118,7 @@ export default function UserForm({ initialData, onSubmit, onClose }: UserFormPro
             <button type='button' onClick={onClose} className='px-4 py-2 text-sm border rounded-lg hover:bg-gray-50'>
               Hủy
             </button>
-            <button type='submit' className='px-4 py-2 text-sm bg-orange text-white rounded-lg hover:bg-orange-600'>
+            <button type='submit' className='px-4 py-2 text-sm bg-button rounded-lg hover:bg-button-hover'>
               {initialData ? 'Cập nhật' : 'Thêm mới'}
             </button>
           </div>

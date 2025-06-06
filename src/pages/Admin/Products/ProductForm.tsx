@@ -91,7 +91,7 @@ export default function ProductForm({ initialData, onSubmit, onClose }: ProductF
               <input
                 {...register('name', { required: 'Vui lòng nhập tên sản phẩm' })}
                 type='text'
-                className='w-full p-2 border rounded-lg focus:outline-none focus:border-orange'
+                className='w-full p-2 border rounded-lg focus:outline-none focus:border-primary'
               />
               {errors.name && <span className='text-red-500 text-sm'>{errors.name.message}</span>}
             </div>
@@ -101,7 +101,7 @@ export default function ProductForm({ initialData, onSubmit, onClose }: ProductF
               <textarea
                 {...register('description')}
                 rows={3}
-                className='w-full p-2 border rounded-lg focus:outline-none focus:border-orange'
+                className='w-full p-2 border rounded-lg focus:outline-none focus:border-primary'
               />
             </div>
 
@@ -114,7 +114,7 @@ export default function ProductForm({ initialData, onSubmit, onClose }: ProductF
                     min: { value: 1000, message: 'Giá phải lớn hơn 1000đ' }
                   })}
                   type='number'
-                  className='w-full p-2 border rounded-lg focus:outline-none focus:border-orange'
+                  className='w-full p-2 border rounded-lg focus:outline-none focus:border-primary'
                 />
                 {errors.price && <span className='text-red-500 text-sm'>{errors.price.message}</span>}
               </div>
@@ -127,7 +127,7 @@ export default function ProductForm({ initialData, onSubmit, onClose }: ProductF
                     min: { value: 0, message: 'Số lượng không được âm' }
                   })}
                   type='number'
-                  className='w-full p-2 border rounded-lg focus:outline-none focus:border-orange'
+                  className='w-full p-2 border rounded-lg focus:outline-none focus:border-primary'
                 />
                 {errors.quantity && <span className='text-red-500 text-sm'>{errors.quantity.message}</span>}
               </div>
@@ -137,7 +137,7 @@ export default function ProductForm({ initialData, onSubmit, onClose }: ProductF
               <label className='block text-sm font-medium text-gray-700 mb-1'>Danh mục</label>
               <select
                 {...register('category', { required: 'Vui lòng chọn danh mục' })}
-                className='w-full p-2 border rounded-lg focus:outline-none focus:border-orange'
+                className='w-full p-2 border rounded-lg focus:outline-none focus:border-primary'
               >
                 <option value=''>Chọn danh mục</option>
                 {categories.map((category: any) => (
@@ -152,7 +152,7 @@ export default function ProductForm({ initialData, onSubmit, onClose }: ProductF
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-1'>Ảnh sản phẩm (nhiều ảnh)</label>
               <input type='file' multiple accept='image/*' onChange={handleImagesChange} />
-              {uploading && <div className='text-orange-500 text-sm'>Đang upload ảnh...</div>}
+              {uploading && <div className='text-main-500 text-sm'>Đang upload ảnh...</div>}
               <div className='flex gap-2 mt-2 flex-wrap'>
                 {previewImages.map((img, idx) => (
                   <div key={idx} className='relative'>
@@ -176,7 +176,7 @@ export default function ProductForm({ initialData, onSubmit, onClose }: ProductF
               <button type='button' onClick={onClose} className='px-4 py-2 border rounded-lg hover:bg-gray-50'>
                 Hủy
               </button>
-              <button type='submit' className='px-4 py-2 bg-orange text-white rounded-lg hover:bg-opacity-70'>
+              <button type='submit' className='px-4 py-2 bg-button text-white rounded-lg hover:bg-button-hover'>
                 {initialData ? 'Cập Nhật' : 'Thêm Mới'}
               </button>
             </div>

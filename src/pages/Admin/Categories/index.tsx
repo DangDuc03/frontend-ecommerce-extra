@@ -58,7 +58,7 @@ export default function Categories() {
   if (categoriesQuery.isLoading || productsQuery.isLoading) {
     return (
       <div className='flex items-center justify-center h-screen'>
-        <Loader2 className='w-8 h-8 animate-spin text-orange-500' />
+        <Loader2 className='w-8 h-8 animate-spin text-main-500' />
       </div>
     )
   }
@@ -73,7 +73,7 @@ export default function Categories() {
             categoriesQuery.refetch()
             productsQuery.refetch()
           }}
-          className='mt-4 text-orange-500 hover:text-orange-600'
+          className='mt-4 text-main-500 hover:text-main-600'
         >
           Thử lại
         </button>
@@ -89,7 +89,7 @@ export default function Categories() {
           <h2 className='text-xl font-semibold'>Quản Lý Danh Mục</h2>
           <button
             onClick={() => setShowForm(true)}
-            className='bg-orange text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-orange-600 transition-colors'
+            className='bg-button px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-button-hover transition-colors'
           >
             <Plus size={20} />
             Thêm Danh Mục
@@ -101,7 +101,7 @@ export default function Categories() {
           <input
             type='text'
             placeholder='Tìm kiếm danh mục...'
-            className='w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:border-orange'
+            className='w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:border-primary'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

@@ -54,7 +54,7 @@ export default function Products() {
   if (productsQuery.isLoading) {
     return (
       <div className='flex items-center justify-center h-screen'>
-        <Loader2 className='w-8 h-8 animate-spin text-orange-500' />
+        <Loader2 className='w-8 h-8 animate-spin text-main-500' />
       </div>
     )
   }
@@ -64,7 +64,8 @@ export default function Products() {
     return (
       <div className='flex flex-col items-center justify-center h-screen text-gray-500'>
         <p>Có lỗi xảy ra khi tải dữ liệu</p>
-        <button onClick={() => productsQuery.refetch()} className='mt-4 text-orange-500 hover:text-orange-600'>
+
+        <button onClick={() => productsQuery.refetch()} className='mt-4 text-main-500 hover:text-main-600'>
           Thử lại
         </button>
       </div>
@@ -79,7 +80,7 @@ export default function Products() {
           <h2 className='text-xl font-semibold'>Quản Lý Sản Phẩm</h2>
           <button
             onClick={() => setShowForm(true)}
-            className='bg-orange text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-orange-600 transition-colors'
+            className='bg-button text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-button-hover transition-colors'
           >
             <Plus size={20} />
             Thêm Sản Phẩm
@@ -91,7 +92,7 @@ export default function Products() {
           <input
             type='text'
             placeholder='Tìm kiếm sản phẩm...'
-            className='w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:border-orange'
+            className='w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:border-primary'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

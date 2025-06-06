@@ -38,7 +38,7 @@ export default function CategoryForm({ initialData, onSubmit, onClose }: Categor
               <input
                 {...register('name', { required: 'Vui lòng nhập tên danh mục' })}
                 type='text'
-                className='w-full p-2 border rounded-lg focus:outline-none focus:border-orange'
+                className='w-full p-2 border rounded-lg focus:outline-none focus:border-primary'
               />
               {errors.name && <span className='text-red-500 text-sm'>{errors.name.message}</span>}
             </div>
@@ -47,7 +47,8 @@ export default function CategoryForm({ initialData, onSubmit, onClose }: Categor
               <button type='button' onClick={onClose} className='px-4 py-2 border rounded-lg hover:bg-gray-50'>
                 Hủy
               </button>
-              <button type='submit' className='px-4 py-2 bg-orange text-white rounded-lg hover:bg-orange-600'>
+
+              <button type='submit' className='px-4 py-2 bg-button text-white rounded-lg hover:bg-button-hover'>
                 {initialData ? 'Cập Nhật' : 'Thêm Mới'}
               </button>
             </div>

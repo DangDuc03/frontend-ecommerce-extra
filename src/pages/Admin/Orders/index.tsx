@@ -54,7 +54,7 @@ export default function Orders() {
   if (ordersQuery.isLoading) {
     return (
       <div className='flex items-center justify-center h-screen'>
-        <span className='text-orange-500'>Đang tải đơn hàng...</span>
+        <span className='text-main-500'>Đang tải đơn hàng...</span>
       </div>
     )
   }
@@ -63,7 +63,7 @@ export default function Orders() {
     return (
       <div className='flex flex-col items-center justify-center h-screen text-gray-500'>
         <p>Có lỗi xảy ra khi tải dữ liệu</p>
-        <button onClick={() => ordersQuery.refetch()} className='mt-4 text-orange-500 hover:text-orange-600'>
+        <button onClick={() => ordersQuery.refetch()} className='mt-4 text-main-500 hover:text-main-600'>
           Thử lại
         </button>
       </div>

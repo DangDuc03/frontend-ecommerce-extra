@@ -39,7 +39,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, index }) => {
           </div>
           <div>
             <span className='font-medium text-gray-500'>Trạng thái:</span>{' '}
-            <span className='text-orange-500 font-semibold'>{order.status || '---'}</span>
+            <span className='text-main-500 font-semibold'>{order.status || '---'}</span>
           </div>
         </div>
       </div>
