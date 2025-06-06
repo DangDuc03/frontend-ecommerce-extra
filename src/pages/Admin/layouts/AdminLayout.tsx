@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import path from 'src/constants/path'
-import { 
-  LayoutDashboard, 
-  Package, 
-  FolderTree, 
-  Users, 
-  BarChart3, 
-  Menu, 
-  X, 
-  Bell, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Package,
+  FolderTree,
+  Users,
+  BarChart3,
+  Menu,
+  X,
+  Bell,
+  Settings,
   LogOut,
   ChevronDown,
   User,
@@ -35,15 +35,22 @@ export default function AdminLayout() {
   return (
     <div className='min-h-screen bg-gray-50 flex'>
       {/* Sidebar */}
-      <div className={`bg-white shadow-lg transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-16'} fixed left-0 top-0 h-full z-40`}>
+      <div
+        className={`bg-white shadow-lg transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-16'} fixed left-0 top-0 h-full z-40`}
+      >
         {/* Logo */}
         <div className='h-16 flex items-center justify-between px-4 border-b'>
           {sidebarOpen && (
             <div className='flex items-center space-x-2'>
-              <div className='w-8 h-8 bg-orange rounded text-white flex items-center justify-center font-bold'>
-                S
+              <div className='flex items-center gap-3'>
+                <div className='p-2 rounded-lg bg-button'>
+                  <svg className='w-6 h-6 text-white' fill='currentColor' viewBox='0 0 24 24'>
+                    <path d='M5 16L3 14l5.5-5.5L10 10l1.5-1.5L18 15l-2 2-5.5-5.5L9 13l-1.5 1.5L5 16z' />
+                    <path d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' />
+                  </svg>
+                </div>
+                <h3 className='text-2xl font-bold bg-button bg-clip-text text-transparent'>Prime</h3>
               </div>
-              <span className='text-xl font-bold text-gray-800'>Shopee Admin</span>
             </div>
           )}
           <button
@@ -63,9 +70,7 @@ export default function AdminLayout() {
                 key={item.id}
                 onClick={() => navigate(item.path)}
                 className={`w-full flex items-center space-x-3 px-3 py-3 rounded-lg mb-2 transition-colors ${
-                  location.pathname === item.path
-                    ? 'bg-orange-50 text-orange-600 border-r-2 border-orange'
-                    : 'text-gray-600 hover:bg-gray-50'
+                  location.pathname === item.path ? 'bg-button' : 'text-gray-600 hover:bg-gray-50'
                 }`}
               >
                 <Icon size={20} />
@@ -82,7 +87,7 @@ export default function AdminLayout() {
         <header className='bg-white shadow-sm border-b h-16 flex items-center justify-between px-6'>
           <div className='flex items-center space-x-4'>
             <h1 className='text-2xl font-semibold text-gray-800'>
-              {menuItems.find(item => location.pathname === item.path)?.label || 'Dashboard'}
+              {menuItems.find((item) => location.pathname === item.path)?.label || 'Dashboard'}
             </h1>
           </div>
 
@@ -104,7 +109,7 @@ export default function AdminLayout() {
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className='flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors'
               >
-                <div className='w-8 h-8 bg-orange rounded-full flex items-center justify-center'>
+                <div className='w-8 h-8 bg-button rounded-full flex items-center justify-center'>
                   <User size={16} className='text-white' />
                 </div>
                 <span className='text-sm font-medium text-gray-700'>Admin User</span>
@@ -140,11 +145,8 @@ export default function AdminLayout() {
 
       {/* Mobile Overlay */}
       {sidebarOpen && (
-        <div 
-          className='fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden'
-          onClick={() => setSidebarOpen(false)}
-        />
+        <div className='fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden' onClick={() => setSidebarOpen(false)} />
       )}
     </div>
   )
-} 
+}

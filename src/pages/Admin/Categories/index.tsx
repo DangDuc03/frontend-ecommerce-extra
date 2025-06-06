@@ -8,7 +8,8 @@ import { Product } from 'src/types/product.type'
 import CountUp from 'react-countup'
 
 export default function Categories() {
-  const { categoriesQuery, deleteCategoryMutation, createCategoryMutation, updateCategoryMutation } = useAdminCategories()
+  const { categoriesQuery, deleteCategoryMutation, createCategoryMutation, updateCategoryMutation } =
+    useAdminCategories()
   const { productsQuery } = useAdminProducts()
   const [searchTerm, setSearchTerm] = useState('')
   const [showForm, setShowForm] = useState(false)
@@ -45,9 +46,7 @@ export default function Categories() {
   const products = productsQuery.data?.data?.data.products || []
 
   const filteredCategories = searchTerm
-    ? categories.filter((category: Category) =>
-        category.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? categories.filter((category: Category) => category.name.toLowerCase().includes(searchTerm.toLowerCase()))
     : categories
 
   // Đếm số lượng sản phẩm cho mỗi category
@@ -59,7 +58,7 @@ export default function Categories() {
   if (categoriesQuery.isLoading || productsQuery.isLoading) {
     return (
       <div className='flex items-center justify-center h-screen'>
-        <Loader2 className='w-8 h-8 animate-spin text-orange-500' />
+        <Loader2 className='w-8 h-8 animate-spin text-main-500' />
       </div>
     )
   }
@@ -74,7 +73,7 @@ export default function Categories() {
             categoriesQuery.refetch()
             productsQuery.refetch()
           }}
-          className='mt-4 text-orange-500 hover:text-orange-600'
+          className='mt-4 text-main-500 hover:text-main-600'
         >
           Thử lại
         </button>
@@ -90,7 +89,7 @@ export default function Categories() {
           <h2 className='text-xl font-semibold'>Quản Lý Danh Mục</h2>
           <button
             onClick={() => setShowForm(true)}
-            className='bg-orange text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-orange-600 transition-colors'
+            className='bg-button px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-button-hover transition-colors'
           >
             <Plus size={20} />
             Thêm Danh Mục
@@ -102,7 +101,7 @@ export default function Categories() {
           <input
             type='text'
             placeholder='Tìm kiếm danh mục...'
-            className='w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:border-orange'
+            className='w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:border-primary'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -122,7 +121,9 @@ export default function Categories() {
                 <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
                   Số Lượng Sản Phẩm
                 </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Thao tác</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Thao tác
+                </th>
               </tr>
             </thead>
             <tbody className='bg-white divide-y divide-gray-200'>
@@ -172,4 +173,4 @@ export default function Categories() {
       )}
     </div>
   )
-} 
+}

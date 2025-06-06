@@ -155,7 +155,7 @@ export default function Cart() {
                       <div className='flex flex-shrink-0 items-center justify-center pr-3'>
                         <input
                           type='checkbox'
-                          className='h-5 w-5 accent-orange'
+                          className='h-5 w-5 accent-primary'
                           checked={isAllChecked}
                           onChange={handleCheckAll}
                         />
@@ -184,7 +184,7 @@ export default function Cart() {
                             <div className='flex flex-shrink-0 items-center justify-center pr-3'>
                               <input
                                 type='checkbox'
-                                className='h-5 w-5 accent-orange'
+                                className='h-5 w-5 accent-primary'
                                 checked={purchase.checked}
                                 onChange={handleCheck(index)}
                               />
@@ -246,14 +246,14 @@ export default function Cart() {
                               />
                             </div>
                             <div className='col-span-1'>
-                              <span className='text-orange'>
+                              <span className='text-main'>
                                 ₫{formatCurrency(purchase.product.price * purchase.buy_count)}
                               </span>
                             </div>
                             <div className='col-span-1'>
                               <button
                                 onClick={handleDelete(index)}
-                                className='bg-none text-black transition-colors hover:text-orange'
+                                className='bg-none text-black transition-colors hover:text-main'
                               >
                                 Xóa
                               </button>
@@ -271,7 +271,7 @@ export default function Cart() {
                 <div className='flex flex-shrink-0 items-center justify-center pr-3'>
                   <input
                     type='checkbox'
-                    className='h-5 w-5 accent-orange'
+                    className='h-5 w-5 accent-primary'
                     checked={isAllChecked}
                     onChange={handleCheckAll}
                   />
@@ -288,15 +288,15 @@ export default function Cart() {
                 <div>
                   <div className='flex items-center sm:justify-end'>
                     <div>Tổng thanh toán ({checkedPurchasesCount} sản phẩm):</div>
-                    <div className='ml-2 text-2xl text-orange'>₫{formatCurrency(totalCheckedPurchasePrice)}</div>
+                    <div className='ml-2 text-2xl text-main'>₫{formatCurrency(totalCheckedPurchasePrice)}</div>
                   </div>
                   <div className='flex items-center text-sm sm:justify-end'>
                     <div className='text-gray-500'>Tiết kiệm</div>
-                    <div className='ml-6 text-orange'>₫{formatCurrency(totalCheckedPurchaseSavingPrice)}</div>
+                    <div className='ml-6 text-main'>₫{formatCurrency(totalCheckedPurchaseSavingPrice)}</div>
                   </div>
                 </div>
                 <Button
-                  className='mt-5 flex h-10 w-52 items-center justify-center bg-red-500 text-sm uppercase text-white hover:bg-red-600 sm:ml-4 sm:mt-0'
+                  className='mt-5 flex h-10 w-52 items-center justify-center bg-button text-sm uppercase hover:bg-button-hover sm:ml-4 sm:mt-0'
                   onClick={handleBuyPurchases}
                   disabled={buyProductsMutation.isPending}
                 >
@@ -312,7 +312,7 @@ export default function Cart() {
             <div className='mt-5 text-center'>
               <Link
                 to={path.home}
-                className=' rounded-sm bg-orange px-10 py-2  uppercase text-white transition-all hover:bg-orange/80'
+                className=' rounded-sm bg-button px-10 py-2  uppercase transition-all hover:bg-button-hover'
               >
                 Mua ngay
               </Link>

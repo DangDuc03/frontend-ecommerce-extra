@@ -63,4 +63,4 @@ export default function useAdminProducts() {
     updateProductMutation,
     deleteProductMutation
   }
-} 
+}

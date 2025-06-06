@@ -36,24 +36,25 @@ export default function Orders() {
   }
   const { ordersQuery }: any = useAdminOrders(params)
   const orders = ordersQuery.data ? ordersQuery.data.data.data.orders : []
-  const total = ordersQuery.data && ordersQuery.data.data && ordersQuery.data.data.total ? ordersQuery.data.data.total : 0
+  const total =
+    ordersQuery.data && ordersQuery.data.data && ordersQuery.data.data.total ? ordersQuery.data.data.total : 0
   const totalPages = Math.ceil(total / limit)
 
-  console.log("ordersQuery: ", ordersQuery.data?.data?.data)
+  console.log('ordersQuery: ', ordersQuery.data?.data?.data)
 
   const handleUpdated = () => {
     setSelectedOrder(null)
-    setRefreshKey(k => k + 1)
+    setRefreshKey((k) => k + 1)
   }
   const handleDeleted = () => {
     setSelectedOrder(null)
-    setRefreshKey(k => k + 1)
+    setRefreshKey((k) => k + 1)
   }
 
   if (ordersQuery.isLoading) {
     return (
       <div className='flex items-center justify-center h-screen'>
-        <span className='text-orange-500'>Đang tải đơn hàng...</span>
+        <span className='text-main-500'>Đang tải đơn hàng...</span>
       </div>
     )
   }
@@ -62,10 +63,7 @@ export default function Orders() {
     return (
       <div className='flex flex-col items-center justify-center h-screen text-gray-500'>
         <p>Có lỗi xảy ra khi tải dữ liệu</p>
-        <button
-          onClick={() => ordersQuery.refetch()}
-          className='mt-4 text-orange-500 hover:text-orange-600'
-        >
+        <button onClick={() => ordersQuery.refetch()} className='mt-4 text-main-500 hover:text-main-600'>
           Thử lại
         </button>
       </div>
@@ -82,15 +80,23 @@ export default function Orders() {
             placeholder='Tìm kiếm mã đơn, email khách hàng...'
             className='border px-3 py-2 rounded-lg w-64'
             value={search}
-            onChange={e => { setSearch(e.target.value); setPage(1) }}
+            onChange={(e) => {
+              setSearch(e.target.value)
+              setPage(1)
+            }}
           />
           <select
             className='border px-3 py-2 rounded-lg'
             value={status}
-            onChange={e => { setStatus(e.target.value); setPage(1) }}
+            onChange={(e) => {
+              setStatus(e.target.value)
+              setPage(1)
+            }}
           >
-            {STATUS_OPTIONS.map(opt => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            {STATUS_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
             ))}
           </select>
         </div>
@@ -100,18 +106,32 @@ export default function Orders() {
           <table className='min-w-full divide-y divide-gray-200'>
             <thead className='bg-gray-50'>
               <tr>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Mã đơn</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Khách hàng</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Tổng tiền</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Trạng thái</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Ngày tạo</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Thao tác</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Mã đơn
+                </th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Khách hàng
+                </th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Tổng tiền
+                </th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Trạng thái
+                </th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Ngày tạo
+                </th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Thao tác
+                </th>
               </tr>
             </thead>
             <tbody className='bg-white divide-y divide-gray-200'>
               {orders.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className='text-center py-6 text-gray-400'>Không có đơn hàng nào</td>
+                  <td colSpan={6} className='text-center py-6 text-gray-400'>
+                    Không có đơn hàng nào
+                  </td>
                 </tr>
               ) : (
                 orders.map((order: any) => (
@@ -122,10 +142,7 @@ export default function Orders() {
                     <td className='px-6 py-4'>{STATUS_LABELS[order.status]}</td>
                     <td className='px-6 py-4'>{order.createdAt ? new Date(order.createdAt).toLocaleString() : ''}</td>
                     <td className='px-6 py-4'>
-                      <button
-                        className='text-blue-600 hover:underline mr-2'
-                        onClick={() => setSelectedOrder(order)}
-                      >
+                      <button className='text-blue-600 hover:underline mr-2' onClick={() => setSelectedOrder(order)}>
                         Xem chi tiết
                       </button>
                     </td>
@@ -145,7 +162,9 @@ export default function Orders() {
             >
               Trước
             </button>
-            <span>Trang {page} / {totalPages}</span>
+            <span>
+              Trang {page} / {totalPages}
+            </span>
             <button
               className='px-3 py-1 rounded border disabled:opacity-50'
               onClick={() => setPage(page + 1)}
@@ -166,4 +185,4 @@ export default function Orders() {
       )}
     </div>
   )
-} 
+}

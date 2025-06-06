@@ -68,8 +68,8 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
     <div className='py-4'>
       <Link
         to={path.home}
-        className={classNames('flex items-center font-bold', {
-          'text-orange': !category
+        className={classNames('flex items-center uppercase font-bold', {
+          'text-main': !category
         })}
       >
         <svg viewBox='0 0 12 10' className='mr-3 h-4 w-3 fill-current'>
@@ -102,11 +102,11 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                   }).toString()
                 }}
                 className={classNames('relative px-2', {
-                  'font-semibold text-orange': isActive
+                  'font-semibold text-main': isActive
                 })}
               >
                 {isActive && (
-                  <svg viewBox='0 0 4 7' className='absolute top-1 left-[-10px] h-2 w-2 fill-orange'>
+                  <svg viewBox='0 0 4 7' className='absolute top-1 left-[-10px] h-2 w-2 '>
                     <polygon points='4 3.5 0 0 0 7' />
                   </svg>
                 )}
@@ -149,7 +149,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                   <InputNumber
                     type='text'
                     className='grow'
-                    placeholder='₫ TỪ'
+                    placeholder='₫ Từ'
                     classNameInput='p-1 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
                     classNameError='hidden'
                     {...field}
@@ -183,7 +183,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                   <InputNumber
                     type='text'
                     className='grow'
-                    placeholder='₫ ĐẾN'
+                    placeholder='₫ Đến'
                     classNameInput='p-1 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
                     classNameError='hidden'
                     {...field}
@@ -197,7 +197,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
             />
           </div>
           <div className='mt-1 min-h-[1.25rem] text-center text-sm text-red-600'>{errors.price_min?.message}</div>
-          <Button className='flex w-full items-center justify-center bg-orange p-2 text-sm uppercase text-white hover:bg-orange/80'>
+          <Button className='flex w-full items-center justify-center bg-button p-2 text-sm uppercase hover:bg-button-hover'>
             Áp dụng
           </Button>
         </form>
@@ -208,7 +208,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       <div className='my-4 h-[1px] bg-gray-300' />
       <Button
         onClick={handleRemoveAll}
-        className='flex w-full items-center justify-center bg-orange p-2 text-sm uppercase text-white hover:bg-orange/80'
+        className='flex w-full items-center justify-center bg-button p-2 text-sm uppercase hover:bg-button-hover'
       >
         Xóa tất cả
       </Button>

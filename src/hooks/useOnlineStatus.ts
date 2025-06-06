@@ -39,18 +39,22 @@ export default function useOnlineStatus() {
     let timeoutId: NodeJS.Timeout
 
     // Throttle API call với error handling
-    const throttledUpdateOnline = throttle(async () => {
-      try {
-        await userApi.updateStatus(profile._id, {
-          isOnline: true,
-          lastActive: new Date().toISOString()
-        })
-        isOnlineRef.current = true
-        console.log('Online status updated via throttle')
-      } catch (error) {
-        console.error('Failed to update online status:', error)
-      }
-    }, THROTTLE_TIME, { leading: true, trailing: false })
+    const throttledUpdateOnline = throttle(
+      async () => {
+        try {
+          await userApi.updateStatus(profile._id, {
+            isOnline: true,
+            lastActive: new Date().toISOString()
+          })
+          isOnlineRef.current = true
+          console.log('Online status updated via throttle')
+        } catch (error) {
+          console.error('Failed to update online status:', error)
+        }
+      },
+      THROTTLE_TIME,
+      { leading: true, trailing: false }
+    )
 
     // Cập nhật trạng thái offline
     const updateOfflineStatus = async () => {
@@ -97,7 +101,7 @@ export default function useOnlineStatus() {
     const highFrequencyEvents = ['mousemove', 'scroll']
 
     // Event listeners cho các action chính
-    events.forEach(event => {
+    events.forEach((event) => {
       window.addEventListener(event, handleUserActivity, { passive: true })
     })
 
@@ -109,7 +113,7 @@ export default function useOnlineStatus() {
       // Không gọi API cho high frequency events, chỉ update lastActivity
     }, 1000) // 1 giây cho scroll/mousemove
 
-    highFrequencyEvents.forEach(event => {
+    highFrequencyEvents.forEach((event) => {
       window.addEventListener(event, throttledActivityForHighFreq, { passive: true })
     })
 
@@ -149,10 +153,10 @@ export default function useOnlineStatus() {
 
     // Cleanup
     return () => {
-      events.forEach(event => {
+      events.forEach((event) => {
         window.removeEventListener(event, handleUserActivity)
       })
-      highFrequencyEvents.forEach(event => {
+      highFrequencyEvents.forEach((event) => {
         window.removeEventListener(event, throttledActivityForHighFreq)
       })
       window.removeEventListener('beforeunload', handleBeforeUnload)

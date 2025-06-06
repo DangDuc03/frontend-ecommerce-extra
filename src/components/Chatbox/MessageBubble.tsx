@@ -9,9 +9,8 @@ interface MessageBubbleProps {
   message: Message
 }
 
-
 const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
-  console.log("message: ", message)
+  console.log('message: ', message)
   // Nếu là bot và có orders
   if (message.sender === 'bot' && message.orders) {
     return (
@@ -36,7 +35,6 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
 
   // Nếu là bot và có suggestedProducts
   if (message.sender === 'bot' && message.suggestedProducts && message.suggestedProducts.length > 0) {
-    
     return (
       <div className='flex justify-start'>
         <div className='flex flex-col gap-2 w-full'>
@@ -49,10 +47,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
               <ul className='space-y-2'>
                 {message.suggestedProducts.map((p, idx) => (
                   <li key={p.productId}>
-                    <Link
-                      to={p.url}
-                      className='text-blue-600 hover:underline font-medium'
-                    >
+                    <Link to={p.url} className='text-blue-600 hover:underline font-medium'>
                       {idx + 1}. {p.name} ({p.price.toLocaleString()}đ)
                     </Link>
                   </li>

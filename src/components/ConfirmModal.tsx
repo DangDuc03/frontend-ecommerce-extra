@@ -50,15 +50,13 @@ export default function ConfirmModal({
         <button onClick={handleCancel} className='absolute right-4 top-4 text-gray-500 hover:text-gray-700'>
           <X size={20} />
         </button>
-        
+
         <h3 className='text-lg font-semibold mb-4'>{title}</h3>
         <p className='text-gray-600 mb-6'>{message}</p>
 
         {isAdmin && (
           <div className='mb-6'>
-            <label className='block text-sm font-medium text-gray-700 mb-1'>
-              Nhập mã xác thực Admin
-            </label>
+            <label className='block text-sm font-medium text-gray-700 mb-1'>Nhập mã xác thực Admin</label>
             <input
               type='text'
               value={code}
@@ -66,7 +64,7 @@ export default function ConfirmModal({
                 setCode(e.target.value)
                 setError('')
               }}
-              className='w-full p-2 border rounded focus:outline-none focus:border-orange'
+              className='w-full p-2 border rounded focus:outline-none focus:border-primary'
               placeholder='Nhập mã xác thực'
             />
             {error && <p className='text-red-500 text-xs mt-1'>{error}</p>}
@@ -74,10 +72,7 @@ export default function ConfirmModal({
         )}
 
         <div className='flex justify-end gap-4'>
-          <button
-            onClick={onCancel}
-            className='px-4 py-2 text-sm border rounded-lg hover:bg-gray-50'
-          >
+          <button onClick={onCancel} className='px-4 py-2 text-sm border rounded-lg hover:bg-gray-50'>
             Hủy
           </button>
           <button
@@ -90,4 +85,4 @@ export default function ConfirmModal({
       </div>
     </div>
   )
-} 
+}

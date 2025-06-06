@@ -72,7 +72,7 @@ function RejectedRoute() {
 }
 
 export default function useRouteElements() {
-  console.log("useRouteElements Mountted")
+  console.log('useRouteElements Mountted')
   const routeElements = useRoutes([
     {
       path: path.admin.root,
@@ -220,8 +220,8 @@ export default function useRouteElements() {
           )
         }
       ]
-    },
-    
+    }
+
     // },
     // {
     //   path: path.productDetail,

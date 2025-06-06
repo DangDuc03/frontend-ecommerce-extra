@@ -20,7 +20,7 @@ import useOnlineStatus from './hooks/useOnlineStatus'
 
 function App() {
   const routeElements = useRouteElements()
-   // Sử dụng hook để theo dõi trạng thái online
+  // Sử dụng hook để theo dõi trạng thái online
   useOnlineStatus()
   const { reset } = useContext(AppContext)
   useEffect(() => {
@@ -35,7 +35,7 @@ function App() {
       <ErrorBoundary>
         {routeElements}
         <ToastContainer />
-      <Chatbot />
+        <Chatbot />
       </ErrorBoundary>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </HelmetProvider>
