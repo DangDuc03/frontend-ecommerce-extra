@@ -47,6 +47,7 @@ export default function CategoryForm({ initialData, onSubmit, onClose }: Categor
               <button type='button' onClick={onClose} className='px-4 py-2 border rounded-lg hover:bg-gray-50'>
                 Hủy
               </button>
+
               <button type='submit' className='px-4 py-2 bg-button text-white rounded-lg hover:bg-button-hover'>
                 {initialData ? 'Cập Nhật' : 'Thêm Mới'}
               </button>

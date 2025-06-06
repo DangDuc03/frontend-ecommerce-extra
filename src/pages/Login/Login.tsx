@@ -39,7 +39,6 @@ export default function Login() {
       onSuccess: (data) => {
         setIsAuthenticated(true)
         setProfile(data.data.data.user)
-
         const from = (location.state as any)?.from?.pathname || '/'
         navigate(from)
       },

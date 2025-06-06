@@ -8,4 +8,4 @@ export default function useAdminOrders(params?: any) {
     placeholderData: keepPreviousData
   })
   return { ordersQuery }
-} 
+}

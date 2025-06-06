@@ -64,6 +64,7 @@ export default function Products() {
     return (
       <div className='flex flex-col items-center justify-center h-screen text-gray-500'>
         <p>Có lỗi xảy ra khi tải dữ liệu</p>
+
         <button onClick={() => productsQuery.refetch()} className='mt-4 text-main-500 hover:text-main-600'>
           Thử lại
         </button>
