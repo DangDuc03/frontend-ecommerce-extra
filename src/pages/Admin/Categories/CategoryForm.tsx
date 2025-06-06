@@ -13,7 +13,11 @@ interface CategoryFormProps {
 }
 
 export default function CategoryForm({ initialData, onSubmit, onClose }: CategoryFormProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
     defaultValues: initialData
   })
 
@@ -22,9 +26,7 @@ export default function CategoryForm({ initialData, onSubmit, onClose }: Categor
       <div className='bg-white rounded-lg w-[400px]'>
         <div className='p-6'>
           <div className='flex justify-between items-center mb-6'>
-            <h2 className='text-xl font-semibold'>
-              {initialData ? 'Chỉnh Sửa Danh Mục' : 'Thêm Danh Mục Mới'}
-            </h2>
+            <h2 className='text-xl font-semibold'>{initialData ? 'Chỉnh Sửa Danh Mục' : 'Thêm Danh Mục Mới'}</h2>
             <button onClick={onClose} className='text-gray-500 hover:text-gray-700'>
               <X size={24} />
             </button>
@@ -32,31 +34,20 @@ export default function CategoryForm({ initialData, onSubmit, onClose }: Categor
 
           <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
             <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>
-                Tên danh mục
-              </label>
+              <label className='block text-sm font-medium text-gray-700 mb-1'>Tên danh mục</label>
               <input
                 {...register('name', { required: 'Vui lòng nhập tên danh mục' })}
                 type='text'
-                className='w-full p-2 border rounded-lg focus:outline-none focus:border-orange'
+                className='w-full p-2 border rounded-lg focus:outline-none focus:border-primary'
               />
-              {errors.name && (
-                <span className='text-red-500 text-sm'>{errors.name.message}</span>
-              )}
+              {errors.name && <span className='text-red-500 text-sm'>{errors.name.message}</span>}
             </div>
 
             <div className='flex justify-end space-x-4 pt-4'>
-              <button
-                type='button'
-                onClick={onClose}
-                className='px-4 py-2 border rounded-lg hover:bg-gray-50'
-              >
+              <button type='button' onClick={onClose} className='px-4 py-2 border rounded-lg hover:bg-gray-50'>
                 Hủy
               </button>
-              <button
-                type='submit'
-                className='px-4 py-2 bg-orange text-white rounded-lg hover:bg-orange-600'
-              >
+              <button type='submit' className='px-4 py-2 bg-button text-white rounded-lg hover:bg-button-hover'>
                 {initialData ? 'Cập Nhật' : 'Thêm Mới'}
               </button>
             </div>
@@ -65,4 +56,4 @@ export default function CategoryForm({ initialData, onSubmit, onClose }: Categor
       </div>
     </div>
   )
-} 
+}

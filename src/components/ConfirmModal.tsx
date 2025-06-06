@@ -66,7 +66,7 @@ export default function ConfirmModal({
                 setCode(e.target.value)
                 setError('')
               }}
-              className='w-full p-2 border rounded focus:outline-none focus:border-orange'
+              className='w-full p-2 border rounded focus:outline-none focus:border-primary'
               placeholder='Nhập mã xác thực'
             />
             {error && <p className='text-red-500 text-xs mt-1'>{error}</p>}

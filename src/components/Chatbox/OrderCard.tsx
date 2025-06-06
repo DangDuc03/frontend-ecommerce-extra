@@ -10,9 +10,9 @@ interface OrderCardProps {
 const HOST = import.meta.env.VITE_PRODUCTION_HOST || 'http://localhost:4000'
 
 const OrderCard: React.FC<OrderCardProps> = ({ order, index }) => {
-  const fallbackImg = ''; // Đặt ảnh mặc định trong public nếu chưa có
-  const imgSrc = order.image && order.image !== '' ? order.image : fallbackImg;
-  const productUrl = order.product_url && order.product_url !== '' ? order.product_url : '#';
+  const fallbackImg = '' // Đặt ảnh mặc định trong public nếu chưa có
+  const imgSrc = order.image && order.image !== '' ? order.image : fallbackImg
+  const productUrl = order.product_url && order.product_url !== '' ? order.product_url : '#'
   return (
     <div
       key={order.product_id || index}
@@ -22,7 +22,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, index }) => {
         src={`${HOST}/images/${imgSrc}`}
         alt={order.name || 'Sản phẩm'}
         className='w-24 h-24 object-cover rounded-lg border border-gray-200 mb-3'
-        onError={e => (e.currentTarget.src = fallbackImg)}
+        onError={(e) => (e.currentTarget.src = fallbackImg)}
       />
       <div className='text-center w-full'>
         <Link to={productUrl} className='font-semibold text-sm text-blue-600 hover:underline line-clamp-2'>
@@ -39,7 +39,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, index }) => {
           </div>
           <div>
             <span className='font-medium text-gray-500'>Trạng thái:</span>{' '}
-            <span className='text-orange-500 font-semibold'>{order.status || '---'}</span>
+            <span className='text-main-500 font-semibold'>{order.status || '---'}</span>
           </div>
         </div>
       </div>

@@ -42,7 +42,7 @@ export default function AdminGuard({ children }: AdminGuardProps) {
     console.log('⏳ Profile loading...')
     return (
       <div className='fixed inset-0 flex items-center justify-center bg-white z-50'>
-        <Loader2 className='h-8 w-8 animate-spin text-orange-500' />
+        <Loader2 className='h-8 w-8 animate-spin text-main-500' />
       </div>
     )
   }
@@ -55,7 +55,6 @@ export default function AdminGuard({ children }: AdminGuardProps) {
   }
 
   // Kiểm tra các quyền đặc biệt cho từng route
-
 
   console.log('✅ Access granted (bypass mode)')
   return <>{children}</>

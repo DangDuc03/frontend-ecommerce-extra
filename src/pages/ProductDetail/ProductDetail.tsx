@@ -75,10 +75,6 @@ export default function ProductDetail() {
     const rect = event.currentTarget.getBoundingClientRect()
     const image = imageRef.current as HTMLImageElement
     const { naturalHeight, naturalWidth } = image
-    // Cách 1: Lấy offsetX, offsetY đơn giản khi chúng ta đã xử lý được bubble event
-    // const { offsetX, offsetY } = event.nativeEvent
-
-    // Cách 2: Lấy offsetX, offsetY khi chúng ta không xử lý được bubble event
     const offsetX = event.pageX - (rect.x + window.scrollX)
     const offsetY = event.pageY - (rect.y + window.scrollY)
 
@@ -176,7 +172,7 @@ export default function ProductDetail() {
                         alt={product.name}
                         className='absolute top-0 left-0 h-full w-full cursor-pointer bg-white object-cover'
                       />
-                      {isActive && <div className='absolute inset-0 border-2 border-orange' />}
+                      {isActive && <div className='absolute inset-0 border-2 border-primary' />}
                     </div>
                   )
                 })}
@@ -201,10 +197,10 @@ export default function ProductDetail() {
               <h1 className='text-xl font-medium uppercase'>{product.name}</h1>
               <div className='mt-8 flex items-center'>
                 <div className='flex items-center'>
-                  <span className='mr-1 border-b border-b-orange text-orange'>{product.rating}</span>
+                  <span className='mr-1 border-b border-b-primary text-main'>{product.rating}</span>
                   <ProductRating
                     rating={product.rating}
-                    activeClassname='fill-orange text-orange h-4 w-4'
+                    activeClassname='fill-yellow-300 text-main h-4 w-4'
                     nonActiveClassname='fill-gray-300 text-gray-300 h-4 w-4'
                   />
                 </div>
@@ -216,8 +212,8 @@ export default function ProductDetail() {
               </div>
               <div className='mt-8 flex items-center bg-gray-50 px-5 py-4'>
                 <div className='text-gray-500 line-through'>₫{formatCurrency(product.price_before_discount)}</div>
-                <div className='ml-3 text-3xl font-medium text-orange'>₫{formatCurrency(product.price)}</div>
-                <div className='ml-4 rounded-sm bg-orange px-1 py-[2px] text-xs font-semibold uppercase text-white'>
+                <div className='ml-3 text-3xl font-medium text-main'>₫{formatCurrency(product.price)}</div>
+                <div className='ml-4 rounded-sm bg-button px-1 py-[2px] text-xs font-semibold uppercase text-white'>
                   {rateSale(product.price_before_discount, product.price)} giảm
                 </div>
               </div>
@@ -237,36 +233,13 @@ export default function ProductDetail() {
               <div className='mt-8 flex items-center'>
                 <button
                   onClick={addToCart}
-                  className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'
+                  className='flex h-12 items-center justify-center rounded-sm border border-primary bg-button px-5 capitalize shadow-sm hover:bg-button-hover'
                 >
-                  <svg
-                    enableBackground='new 0 0 15 15'
-                    viewBox='0 0 15 15'
-                    x={0}
-                    y={0}
-                    className='mr-[10px] h-5 w-5 fill-current stroke-orange text-orange'
-                  >
-                    <g>
-                      <g>
-                        <polyline
-                          fill='none'
-                          points='.5 .5 2.7 .5 5.2 11 12.4 11 14.5 3.5 3.7 3.5'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeMiterlimit={10}
-                        />
-                        <circle cx={6} cy='13.5' r={1} stroke='none' />
-                        <circle cx='11.5' cy='13.5' r={1} stroke='none' />
-                      </g>
-                      <line fill='none' strokeLinecap='round' strokeMiterlimit={10} x1='7.5' x2='10.5' y1={7} y2={7} />
-                      <line fill='none' strokeLinecap='round' strokeMiterlimit={10} x1={9} x2={9} y1='8.5' y2='5.5' />
-                    </g>
-                  </svg>
                   Thêm vào giỏ hàng
                 </button>
                 <button
                   onClick={buyNow}
-                  className='fkex ml-4 h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
+                  className='fkex ml-4 h-12 min-w-[5rem] items-center justify-center rounded-sm bg-button px-5 capitalize text-white shadow-sm outline-none hover:bg-button-hover'
                 >
                   Mua ngay
                 </button>

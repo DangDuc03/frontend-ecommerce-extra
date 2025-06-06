@@ -34,7 +34,7 @@ export default function NavHeader() {
         await userApi.updateStatus(profile._id, { isOnline: false, lastActive: new Date().toISOString() })
       }
     } catch (e) {
-      console.log("lỗi: ", e)
+      console.log('lỗi: ', e)
     }
     logoutMutation.mutate()
     toast.success('Đăng xuất thành công')
@@ -47,14 +47,14 @@ export default function NavHeader() {
   return (
     <div className='flex justify-end'>
       <Popover
-        className='flex cursor-pointer items-center py-1 hover:text-white/70'
+        className='flex cursor-pointer items-center py-1 hover:text-main'
         renderPopover={
           <div className='relative rounded-sm border border-gray-200 bg-white shadow-md'>
-            <div className='flex flex-col py-2 pr-28 pl-3'>
-              <button className='py-2 px-3 text-left hover:text-orange' onClick={() => changeLanguage('vi')}>
+            <div className='flex flex-col py-2 px-2'>
+              <button className='text-sm py-1 text-left px-3 hover:text-main' onClick={() => changeLanguage('vi')}>
                 Tiếng Việt
               </button>
-              <button className='mt-2 py-2 px-3 text-left hover:text-orange' onClick={() => changeLanguage('en')}>
+              <button className='text-sm py-1 text-left px-3 hover:text-main' onClick={() => changeLanguage('en')}>
                 English
               </button>
             </div>
@@ -89,7 +89,7 @@ export default function NavHeader() {
       </Popover>
       {isAuthenticated && (
         <Popover
-          className='ml-6 flex cursor-pointer items-center py-1 hover:text-white/70'
+          className='ml-6 flex cursor-pointer items-center py-1 hover:text-main'
           renderPopover={
             <div className='relative rounded-sm border border-gray-200 bg-white shadow-md'>
               <Link
@@ -106,7 +106,7 @@ export default function NavHeader() {
               </Link>
               <button
                 onClick={handleLogout}
-                className='block w-full bg-white py-3 px-4 text-left hover:bg-slate-100 hover:text-cyan-500'
+                className='block w-full bg-white py-3 px-4 text-left hover:bg-slate-100 hover:text-red-500'
               >
                 Đăng xuất
               </button>
@@ -124,7 +124,7 @@ export default function NavHeader() {
           <Link to={path.register} className='mx-3 capitalize hover:text-white/70'>
             Đăng ký
           </Link>
-          <div className='h-4 border-r-[1px] border-r-white/40' />
+          <div className='w-[1px] h-4 bg-gradient-to-b from-blue-600 to-purple-600'></div>
           <Link to={path.login} className='mx-3 capitalize hover:text-white/70'>
             Đăng nhập
           </Link>
