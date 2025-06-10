@@ -6,9 +6,10 @@ import { AppContext } from '../contexts/app.context'
 import { LocalStorageEventTarget } from '../utils/auth'
 import { useQueryClient } from '@tanstack/react-query'
 import { purchasesStatus } from 'src/constants/purchase'
+import userApi from '../apis/user.api'
 
 export const useChatbot = () => {
-  const { profile } = useContext(AppContext)
+  const { profile, setProfile } = useContext(AppContext)
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>(DEFAULT_MESSAGES)
   const [inputValue, setInputValue] = useState('')
@@ -81,9 +82,21 @@ export const useChatbot = () => {
     try {
       let botResponse = 'Cảm ơn bạn đã liên hệ! Tôi đang xử lý yêu cầu của bạn...'
 
-      const res = (await chatbotApi.sendMessage({ prompt: inputValue })) as { data: ChatbotApiResponse }
+      const res = (await chatbotApi.sendMessage({ prompt: inputValue })) as { data: ChatbotApiResponse & { profile?: any } }
       botResponse = res.data.reply || botResponse
       const intent = res.data.intent
+
+      // Nếu intent là update_profile và có profile mới, cập nhật lại AppContext
+      if (intent === 'update_profile') {
+        if (res.data.profile) {
+          setProfile(res.data.profile)
+        } else {
+          // Nếu không có profile trả về, gọi lại API lấy profile
+          userApi.getProfile().then((resp) => {
+            setProfile(resp.data.data)
+          })
+        }
+      }
 
       setTimeout(() => {
         const botMessage: Message = {
@@ -122,7 +135,7 @@ export const useChatbot = () => {
             content:
               error?.response?.status === 401
                 ? 'Bạn cần đăng nhập để sử dụng chatbot.'
-                : 'Xin lỗi vì sự bất tiện này🥹, hệ thống đang có lỗi xảy ra. Vui lòng thử lại sau.',
+                : error?.response?.data?.message || 'Xin lỗi vì sự bất tiện này🥹, hệ thống đang có lỗi xảy ra. Vui lòng thử lại sau.',
             sender: 'bot',
             timestamp: new Date()
           }

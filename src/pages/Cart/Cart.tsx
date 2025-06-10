@@ -142,6 +142,11 @@ export default function Cart() {
     }
   }
 
+  const URLIMAGE = import.meta.env.VITE_PRODUCTION_HOSS
+  ? `${import.meta.env.VITE_PRODUCTION_HOSS}/images`
+  : 'http://localhost:4000/images'
+
+
   return (
     <div className='bg-neutral-100 py-16'>
       <div className='container'>
@@ -198,7 +203,7 @@ export default function Cart() {
                                     id: purchase.product._id
                                   })}`}
                                 >
-                                  <img alt={purchase.product.name} src={purchase.product.image} />
+                                  <img alt={purchase.product.name} src={`${URLIMAGE}/${purchase.product.image}`} />
                                 </Link>
                                 <div className='flex-grow px-2 pt-1 pb-2'>
                                   <Link

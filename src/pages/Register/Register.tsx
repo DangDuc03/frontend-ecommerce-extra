@@ -159,7 +159,7 @@ export default function Register() {
                     <Input
                       name='confirm_password'
                       register={register}
-                      type='confirm_password'
+                      type='password'
                       className='w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-800 placeholder-gray-500'
                       errorMessage={errors.confirm_password?.message}
                       placeholder='••••••••'

@@ -11,6 +11,10 @@ import { formatCurrency } from 'src/utils/utils'
 import NavHeader from '../NavHeader'
 import useSearchProducts from 'src/hooks/useSearchProducts'
 
+const URLIMAGE = import.meta.env.VITE_PRODUCTION_HOSS
+? `${import.meta.env.VITE_PRODUCTION_HOSS}/images`
+: 'http://localhost:4000/images'
+
 const MAX_PURCHASES = 5
 export default function Header() {
   const { isAuthenticated } = useContext(AppContext)
@@ -77,7 +81,7 @@ export default function Header() {
                           <div className='mt-2 flex py-2 hover:bg-gray-100' key={purchase._id}>
                             <div className='flex-shrink-0'>
                               <img
-                                src={purchase.product.image}
+                                src={`${URLIMAGE}/${purchase.product.image}`}
                                 alt={purchase.product.name}
                                 className='h-11 w-11 object-cover'
                               />

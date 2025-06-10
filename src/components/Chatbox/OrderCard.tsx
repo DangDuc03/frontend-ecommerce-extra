@@ -7,7 +7,9 @@ interface OrderCardProps {
   index: number
 }
 
-const HOST = import.meta.env.VITE_PRODUCTION_HOST || 'http://localhost:4000'
+const URLIMAGE = import.meta.env.VITE_PRODUCTION_HOSS
+? `${import.meta.env.VITE_PRODUCTION_HOSS}/images`
+: 'http://localhost:4000/images'
 
 const OrderCard: React.FC<OrderCardProps> = ({ order, index }) => {
   const fallbackImg = '' // Đặt ảnh mặc định trong public nếu chưa có
@@ -19,7 +21,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, index }) => {
       className='flex flex-col items-center bg-white border border-blue-200 rounded-xl p-4 mb-3 shadow-sm w-full max-w-[200px]'
     >
       <img
-        src={`${HOST}/images/${imgSrc}`}
+        src={`${URLIMAGE}/${imgSrc}`}
         alt={order.name || 'Sản phẩm'}
         className='w-24 h-24 object-cover rounded-lg border border-gray-200 mb-3'
         onError={(e) => (e.currentTarget.src = fallbackImg)}
