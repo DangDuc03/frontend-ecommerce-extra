@@ -53,7 +53,7 @@ export const getIdFromNameId = (nameId: string) => {
   return arr[arr.length - 1]
 }
 
-export const getAvatarUrl = (avatarName?: string) => (avatarName ? `${config.baseUrl}images/${avatarName}` : userImage)
+export const getAvatarUrl = (avatarName?: string) => (avatarName ? `${config.baseUrl}/images/${avatarName}` : userImage)
 
 export const formatDate = (dateString: string) => {
   const date = new Date(dateString)

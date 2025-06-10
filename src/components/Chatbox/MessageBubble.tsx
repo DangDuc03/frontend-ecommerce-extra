@@ -10,7 +10,7 @@ interface MessageBubbleProps {
 }
 
 const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
-  console.log('message: ', message)
+  // console.log('message: ', message)
   // Nếu là bot và có orders
   if (message.sender === 'bot' && message.orders) {
     return (
