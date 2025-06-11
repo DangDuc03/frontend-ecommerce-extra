@@ -1,5 +1,6 @@
 import { memo } from 'react'
 import { Outlet } from 'react-router-dom'
+import Chatbot from 'src/components/Chatbox/Chatbot'
 import Footer from 'src/components/Footer'
 import Header from 'src/components/Header'
 interface Props {
@@ -11,6 +12,7 @@ function MainLayoutInner({ children }: Props) {
       <Header />
       {children}
       <Outlet />
+      <Chatbot />
       <Footer />
     </div>
   )

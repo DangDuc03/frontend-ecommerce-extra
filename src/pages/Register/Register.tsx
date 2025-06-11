@@ -100,7 +100,7 @@ export default function Register() {
               </div>
 
               <div className='space-y-4'>
-                <h2 className='text-4xl font-bold text-gray-800 leading-tight'>Chào mừng trở lại!</h2>
+                <h2 className='text-4xl font-bold text-gray-800 leading-tight'>Chào mừng bạn đến với Prime!</h2>
                 <p className='text-lg text-gray-600 leading-relaxed'>
                   Trải nghiệm mua sắm cao cấp với dịch vụ Prime chất lượng hàng đầu
                 </p>
@@ -132,8 +132,8 @@ export default function Register() {
             <div className='bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-12'>
               <div className='space-y-6'>
                 <div className='text-center'>
-                  <h2 className='text-3xl font-bold text-gray-800 mb-2'>Đăng Nhập</h2>
-                  <p className='text-gray-600'>Chào mừng bạn quay trở lại Prime</p>
+                  <h2 className='text-3xl font-bold text-gray-800 mb-2'>Đăng Ký</h2>
+                  <p className='text-gray-600'>Chào mừng bạn đến với Prime Shop</p>
                 </div>
 
                 <form action='' className='space-y-5' onSubmit={onSubmit} noValidate>

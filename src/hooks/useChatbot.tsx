@@ -117,32 +117,31 @@ export const useChatbot = () => {
         }
       }, 1000)
     } catch (error: any) {
-      if (error?.response?.status === 503) {
-        setTimeout(() => {
-          const errorMessage: Message = {
-            id: (Date.now() + 1).toString(),
-            content: 'Hiện nay, Hệ thống AI đang gặp chút vấn đề, vui lòng thử lại sau.',
-            sender: 'bot',
-            timestamp: new Date()
-          }
-          setMessages((prev) => [...prev, errorMessage])
-          setIsTyping(false)
-        }, 1000)
-      } else {
-        setTimeout(() => {
-          const errorMessage: Message = {
-            id: (Date.now() + 1).toString(),
-            content:
-              error?.response?.status === 401
-                ? 'Bạn cần đăng nhập để sử dụng chatbot.'
-                : error?.response?.data?.message || 'Xin lỗi vì sự bất tiện này🥹, hệ thống đang có lỗi xảy ra. Vui lòng thử lại sau.',
-            sender: 'bot',
-            timestamp: new Date()
-          }
-          setMessages((prev) => [...prev, errorMessage])
-          setIsTyping(false)
-        }, 1000)
-      }
+      // Tin nhắn của người dùng đã được thêm vào ở trên một cách lạc quan.
+      // Tuy nhiên, để đảm bảo tính toàn vẹn trong trường hợp re-render,
+      // chúng ta sẽ cập nhật lại state với cả tin nhắn người dùng và tin nhắn lỗi của bot.
+      
+      const botErrorMessageContent =
+        error?.response?.data?.reply ||
+        error?.response?.data?.message ||
+        'Xin lỗi, hệ thống đang gặp sự cố. Vui lòng thử lại sau.';
+
+      const botErrorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: botErrorMessageContent,
+        sender: 'bot',
+        timestamp: new Date()
+      };
+
+      // Thay vì chỉ thêm tin nhắn lỗi, ta đảm bảo cả tin nhắn người dùng cũng được giữ lại.
+      // Cách tiếp cận an toàn nhất là xóa tin nhắn lạc quan của người dùng (nếu có) và thêm lại cả hai.
+      setMessages((prev) => {
+        const optimisticMessageIndex = prev.findIndex(m => m.id === userMessage.id);
+        const baseMessages = optimisticMessageIndex > -1 ? prev.slice(0, optimisticMessageIndex) : prev;
+        return [...baseMessages, userMessage, botErrorMessage];
+      });
+      
+      setIsTyping(false);
     }
   }
 

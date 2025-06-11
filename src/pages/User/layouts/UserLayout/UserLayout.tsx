@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import UserSideNav from '../../components/UserSideNav'
+import Chatbot from 'src/components/Chatbox/Chatbot'
 
 export default function UserLayout() {
   return (
@@ -12,6 +13,7 @@ export default function UserLayout() {
           <div className='md:col-span-9 lg:col-span-10'>
             <Outlet />
           </div>
+          <Chatbot />
         </div>
       </div>
     </div>
