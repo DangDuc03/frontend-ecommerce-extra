@@ -4,10 +4,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useEffect, useContext } from 'react'
 import { LocalStorageEventTarget } from './utils/auth'
 import { AppContext } from './contexts/app.context'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import ErrorBoundary from './components/ErrorBoundary'
 import { HelmetProvider } from 'react-helmet-async'
-import Chatbot from './components/Chatbox/Chatbot'
+// import Chatbot from './components/Chatbox/Chatbot'
 import useOnlineStatus from './hooks/useOnlineStatus'
 
 /**
@@ -35,7 +35,7 @@ function App() {
       <ErrorBoundary>
         {routeElements}
         <ToastContainer />
-        <Chatbot />
+        {/* <Chatbot /> */}
       </ErrorBoundary>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </HelmetProvider>

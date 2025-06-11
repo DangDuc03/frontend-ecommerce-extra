@@ -44,7 +44,6 @@ export default function HistoryPurchase() {
 
   const purchasesInCart = purchasesInCartData?.data.data
 
-
   const cancelOrderMutation = useMutation({
     mutationFn: (orderId: string) => purchaseApi.cancelOrder(orderId),
     onSuccess: () => {
@@ -60,21 +59,24 @@ export default function HistoryPurchase() {
   }
 
   // Nhóm các sản phẩm theo orderId
-  const groupedOrders = purchasesInCart?.reduce((acc, purchase) => {
-    console.log("purchase: ", purchase)
-    const orderId = purchase.order._id 
-    if (!acc[orderId]) {
-      acc[orderId] = {
-        orderId,
-        status: purchase.status,
-        items: [],
-        totalAmount: 0
+  const groupedOrders = purchasesInCart?.reduce(
+    (acc, purchase) => {
+      console.log('purchase: ', purchase)
+      const orderId = purchase.order._id ? purchase.order._id : ''
+      if (!acc[orderId]) {
+        acc[orderId] = {
+          orderId,
+          status: purchase.status,
+          items: [],
+          totalAmount: 0
+        }
       }
-    }
-    acc[orderId].items.push(purchase)
-    acc[orderId].totalAmount += purchase.product.price * purchase.buy_count
-    return acc
-  }, {} as Record<string, { orderId: string; status: number; items: any[]; totalAmount: number}>)
+      acc[orderId].items.push(purchase)
+      acc[orderId].totalAmount += purchase.product.price * purchase.buy_count
+      return acc
+    },
+    {} as Record<string, { orderId: string; status: number; items: any[]; totalAmount: number }>
+  )
 
   const purchaseTabsLink = purchaseTabs.map((tab) => (
     <Link
@@ -98,7 +100,7 @@ export default function HistoryPurchase() {
     ? `${import.meta.env.VITE_PRODUCTION_HOSS}/images`
     : 'http://localhost:4000/images'
 
-    groupedOrders && Object.values(groupedOrders).map((order) => console.log("order: ", order))
+  // groupedOrders && Object.values(groupedOrders).map((order) => console.log("order: ", order))
 
   return (
     <div>
@@ -106,89 +108,97 @@ export default function HistoryPurchase() {
         <div className='min-w-[700px]'>
           <div className='sticky top-0 flex rounded-t-sm shadow-sm'>{purchaseTabsLink}</div>
           <div>
-            {groupedOrders && Object.values(groupedOrders).map((order) => (
-              <div key={order.orderId} className='mt-4 rounded-sm border-black/10 bg-white p-6 text-gray-800 shadow-sm'>
-                {/* Header đơn hàng */}
-                <div className='mb-4 pb-3 border-b border-gray-200'>
-                  <div className='flex justify-between items-center'>
-                    <div>
-                      <span className='text-sm text-gray-500'>Mã đơn hàng: </span>
-                      <span className='font-medium text-blue-500'>{order.orderId}</span>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <span className={classNames('font-medium text-[15px]', {
-                        'text-gray-500': order.status === purchasesStatus.cancelled,
-                        'text-orange-500': order.status === purchasesStatus.waitForConfirmation,
-                        'text-blue-500': order.status === purchasesStatus.waitForGetting,
-                        'text-purple-500': order.status === purchasesStatus.inProgress,
-                        'text-green-500': order.status === purchasesStatus.delivered
-                      })}>
-                        {getStatusName(order.status)}
-                      </span>
+            {groupedOrders &&
+              Object.values(groupedOrders).map((order) => (
+                <div
+                  key={order.orderId}
+                  className='mt-4 rounded-sm border-black/10 bg-white p-6 text-gray-800 shadow-sm'
+                >
+                  {/* Header đơn hàng */}
+                  <div className='mb-4 pb-3 border-b border-gray-200'>
+                    <div className='flex justify-between items-center'>
+                      <div>
+                        <span className='text-sm text-gray-500'>Mã đơn hàng: </span>
+                        <span className='font-medium text-blue-500'>{order.orderId}</span>
+                      </div>
+                      <div className='flex items-center gap-2'>
+                        <span
+                          className={classNames('font-medium text-[15px]', {
+                            'text-gray-500': order.status === purchasesStatus.cancelled,
+                            'text-orange-500': order.status === purchasesStatus.waitForConfirmation,
+                            'text-blue-500': order.status === purchasesStatus.waitForGetting,
+                            'text-purple-500': order.status === purchasesStatus.inProgress,
+                            'text-green-500': order.status === purchasesStatus.delivered
+                          })}
+                        >
+                          {getStatusName(order.status)}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Danh sách sản phẩm trong đơn hàng */}
-                <div className='space-y-4'>
-                  {order.items.map((purchase) => (
-                    <Link
-                      key={purchase._id}
-                      to={`${path.home}${generateNameId({ name: purchase.product.name, id: purchase.product._id })}`}
-                      className='flex items-center py-2 hover:bg-gray-50 rounded transition-colors'
-                    >
-                      <div className='flex-shrink-0'>
-                        <img 
-                          className='h-20 w-20 object-cover rounded' 
-                          src={`${URLIMAGE}/${purchase.product.image}`} 
-                          alt={purchase.product.name} 
-                        />
-                      </div>
-                      <div className='ml-3 flex-grow overflow-hidden'>
-                        <div className='truncate font-medium'>{purchase.product.name}</div>
-                        <div className='mt-2 text-sm text-gray-600'>Số lượng: x{purchase.buy_count}</div>
-                      </div>
-                      <div className='ml-3 flex-shrink-0 text-right'>
-                        <div className='text-sm text-gray-500 line-through'>
-                          ₫{formatCurrency(purchase.product.price_before_discount)}
-                        </div>
-                        <div className='text-main font-medium'>
-                          ₫{formatCurrency(purchase.product.price)}
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-
-                {/* Footer đơn hàng - Tổng tiền và nút hành động */}
-                <div className='mt-4 pt-4 border-t border-gray-200'>
-                  <div className='flex justify-between items-center'>
-                    {/* Tổng tiền */}
-                    <div className='flex items-center gap-2'>
-                      <span className='text-sm text-gray-600'>Tổng tiền:</span>
-                      <span className={classNames('text-xl font-semibold', {
-                        'text-gray-500 line-through': order.status === purchasesStatus.cancelled,
-                        'text-main': order.status !== purchasesStatus.cancelled
-                      })}>
-                        ₫{formatCurrency(order.totalAmount)}
-                      </span>
-                    </div>
-
-                    {/* Nút huỷ đơn - chỉ hiển thị khi đơn hàng đang chờ xác nhận */}
-                    {order.status === purchasesStatus.waitForConfirmation && status !== purchasesStatus.all && (
-                      <Button
-                        className='bg-button text-white px-6 py-2 rounded hover:bg-button-hover transition-colors font-medium'
-                        isLoading={cancelingId === order.orderId && cancelOrderMutation.isPending}
-                        disabled={cancelingId === order.orderId && cancelOrderMutation.isPending}
-                        onClick={() => handleCancelOrder(order.orderId)}
+                  {/* Danh sách sản phẩm trong đơn hàng */}
+                  <div className='space-y-4'>
+                    {order.items.map((purchase) => (
+                      <Link
+                        key={purchase._id}
+                        to={`${path.home}${generateNameId({ name: purchase.product.name, id: purchase.product._id })}`}
+                        className='flex items-center py-2 hover:bg-gray-50 rounded transition-colors'
                       >
-                        {cancelingId === order.orderId && cancelOrderMutation.isPending ? 'Đang huỷ...' : 'Huỷ đơn hàng'}
-                      </Button>
-                    )}
+                        <div className='flex-shrink-0'>
+                          <img
+                            className='h-20 w-20 object-cover rounded'
+                            src={`${URLIMAGE}/${purchase.product.image}`}
+                            alt={purchase.product.name}
+                          />
+                        </div>
+                        <div className='ml-3 flex-grow overflow-hidden'>
+                          <div className='truncate font-medium'>{purchase.product.name}</div>
+                          <div className='mt-2 text-sm text-gray-600'>Số lượng: x{purchase.buy_count}</div>
+                        </div>
+                        <div className='ml-3 flex-shrink-0 text-right'>
+                          <div className='text-sm text-gray-500 line-through'>
+                            ₫{formatCurrency(purchase.product.price_before_discount)}
+                          </div>
+                          <div className='text-main font-medium'>₫{formatCurrency(purchase.product.price)}</div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Footer đơn hàng - Tổng tiền và nút hành động */}
+                  <div className='mt-4 pt-4 border-t border-gray-200'>
+                    <div className='flex justify-between items-center'>
+                      {/* Tổng tiền */}
+                      <div className='flex items-center gap-2'>
+                        <span className='text-sm text-gray-600'>Tổng tiền:</span>
+                        <span
+                          className={classNames('text-xl font-semibold', {
+                            'text-gray-500 line-through': order.status === purchasesStatus.cancelled,
+                            'text-main': order.status !== purchasesStatus.cancelled
+                          })}
+                        >
+                          ₫{formatCurrency(order.totalAmount)}
+                        </span>
+                      </div>
+
+                      {/* Nút huỷ đơn - chỉ hiển thị khi đơn hàng đang chờ xác nhận */}
+                      {order.status === purchasesStatus.waitForConfirmation && status !== purchasesStatus.all && (
+                        <Button
+                          className='bg-button text-white px-6 py-2 rounded hover:bg-button-hover transition-colors font-medium'
+                          isLoading={cancelingId === order.orderId && cancelOrderMutation.isPending}
+                          disabled={cancelingId === order.orderId && cancelOrderMutation.isPending}
+                          onClick={() => handleCancelOrder(order.orderId)}
+                        >
+                          {cancelingId === order.orderId && cancelOrderMutation.isPending
+                            ? 'Đang huỷ...'
+                            : 'Huỷ đơn hàng'}
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>
